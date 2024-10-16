@@ -12,8 +12,19 @@ app.use(cors()) // allow cross-origin resource sharing
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
 
+app.get('/aboutus', (req, res) => {
+	console.log("=====> come into this part");
+    const aboutData = {
+        title: 'About Us',
+        welcomeMessage: 'Welcome to my self-introduction page!',
+        description: 'I am excited to share our journey with you.',
+        imageUrl: 'http://localhost:7002/photo.jpg' 
+    };
+    res.json(aboutData);
+})
+
 // connect to database
-mongoose
+ mongoose
   .connect(`${process.env.DB_CONNECTION_STRING}`)
   .then(data => console.log(`Connected to MongoDB`))
   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
@@ -77,6 +88,8 @@ app.post('/messages/save', async (req, res) => {
     })
   }
 })
+
+
 
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
